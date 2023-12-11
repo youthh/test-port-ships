@@ -23,9 +23,7 @@ class ShipQueue {
     return this.redQueue.shift();
   }
 
-  dequeueGreen(): Ship | undefined {
-    console.log(this.greenQueue);
-    
+  dequeueGreen(): Ship | undefined {    
     return this.greenQueue.shift();
   }
 
@@ -48,26 +46,16 @@ class ShipQueue {
   
   moveToRedQueue(ship: Ship): void {
     let shipY = 390 - SPACE_BETWEEN_SHIPS_IN_QUEUE * this.redQueue.length;
-    
     const redShip = this.redQueue.at(-1);
 
     new TWEEN.Tween(redShip.getGraphics().position)
-      .onUpdate((cords) => {
-
-        redShip.getGraphics().x = cords._x;
-        redShip.getGraphics().y = cords._y;
-      })
       .to({ x: 580, y: shipY }, SPEED)
       .easing(TWEEN.Easing.Quadratic.InOut as any)
       .start();
- 
   }
 
   moveToGreenQueue(ship: Ship): void {
-    
     let shipY = 390 - SPACE_BETWEEN_SHIPS_IN_QUEUE * this.greenQueue.length;
-    console.log(this);
-    
     const greenShip = this.greenQueue.at(-1);
    
     new TWEEN.Tween(greenShip.getGraphics().position)

@@ -33,7 +33,6 @@ class Port {
      this.lineEnter.moveTo(150,400);
      this.lineEnter.lineTo(580, 400);
     
-      console.log(this.lineEnter);
       
      // Position the entrance
      this.lineEnter.position.set(0, 0);

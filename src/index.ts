@@ -18,32 +18,31 @@ export const queue = new ShipQueue();
 
 function createShipAndMoveToPort() {
   const ship = new Ship();
-  
-  app.stage.addChild(ship.getGraphics());
-  movements.addShip(ship)
 
+  app.stage.addChild(ship.getGraphics());
+
+  movements.addShip(ship);
 
   if (ship.getShipType() === "green") {
     const fulledDock = port.getFulledDock();
 
     if (fulledDock && !queue.getGreenShips().length) {
-      ship.moveToEnterence(300, 270, fulledDock)
-    } 
+      movements.moveToEnterence(300, 270, fulledDock, ship)
+    }
     else {
       queue.enqueueGreen(ship)
       queue.moveToGreenQueue(ship)
     }
-   
+
   } else {
     const availableDock = port.getAvailableDock();
 
-
-    if(queue.getRedShips().length || !availableDock) {
+    if (queue.getRedShips().length || !availableDock) {
       queue.enqueueRed(ship)
       queue.moveToRedQueue(ship)
-    } 
+    }
     else {
-      ship.moveToEnterence(370, 270, availableDock)
+      movements.moveToEnterence(370, 270, availableDock, ship)
     }
   }
 }
@@ -56,17 +55,16 @@ setInterval(() => {
 setInterval(() => {
   const fulledDock = port.getFulledDock();
   if (fulledDock && queue.getGreenShips().length) {
-    const currentShip = queue.dequeueGreen();    
-    currentShip?.moveToEnterence(280, 300, fulledDock)
+    const currentShip = queue.dequeueGreen();
+    movements?.moveToEnterence(280, 300, fulledDock, currentShip)
     queue.getGreenShips().length && queue.moveQueue(queue.getGreenShips())
-  }   
+  }
 
   const availableDock = port.getAvailableDock();
 
   if (availableDock && queue.getRedShips().length) {
-    
     const currentShip = queue.dequeueRed();
-    currentShip?.moveToEnterence(370, 300, availableDock)
+    movements?.moveToEnterence(370, 300, availableDock, currentShip)
     queue.getRedShips().length && queue.moveQueue(queue.getRedShips())
   }
 }, 2000);
@@ -79,3 +77,4 @@ createShipAndMoveToPort();
 app.ticker.add(() => {
   TWEEN.update();
 });
+

@@ -13,10 +13,7 @@ class Dock {
   }
 
   isOccupied(): boolean {
-    if(Boolean(this.ship) || this.occupied){
-        return true;
-    }
-    return false
+    return Boolean(this.ship) || this.occupied;
   }
 
   dockShip(ship: Ship): void {
@@ -26,13 +23,10 @@ class Dock {
 
   setIsDock() {
     this.ship = null;
-
   }
 
   isFree(): boolean {
-    const a = this.occupied && !this.isBusy ;
-    
-    return a
+    return this.occupied && !this.isBusy;
   }
 
   setBusy(value: boolean) {
@@ -41,12 +35,11 @@ class Dock {
 
   create(x: number, y: number) {
     this.graphics = new PIXI.Graphics();
-    this.occupied ?  this.graphics.beginFill(0xFFFF00)
-     : this.graphics.lineStyle(5, 0xFFFF00); 
+    this.occupied ? this.graphics.beginFill(0xFFFF00)
+      : this.graphics.lineStyle(5, 0xFFFF00);
     this.graphics.drawRect(0, 0, 100, 95);
     this.graphics.position.set(x, y);
     app.stage.addChild(this.graphics)
-
   }
 
   undockShip(): void {
@@ -61,10 +54,6 @@ class Dock {
   getPosition(): { x: number; y: number } {
     return { x: this.graphics.x, y: this.graphics.y };
   }
-
-
-  
-  // Інші методи та логіка для доку
 }
 
 export { Dock };
